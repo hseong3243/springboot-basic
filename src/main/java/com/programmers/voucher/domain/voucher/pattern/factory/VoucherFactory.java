@@ -7,5 +7,5 @@ import java.util.UUID;
 
 public interface VoucherFactory {
     Voucher publishVoucher(UUID voucherId, long amount);
-    Voucher retrieveVoucher(UUID voucherId, long amount, LocalDateTime createdAt);
+    Voucher retrieveVoucher(UUID voucherId, UUID customerId, long amount, LocalDateTime createdAt);
 }

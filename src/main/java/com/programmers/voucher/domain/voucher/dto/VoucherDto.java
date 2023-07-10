@@ -8,12 +8,14 @@ import java.util.UUID;
 
 public class VoucherDto {
     private final UUID voucherId;
+    private final UUID customerId;
     private final VoucherType voucherType;
     private final long amount;
     private final LocalDateTime createdAt;
 
-    VoucherDto(UUID voucherId, VoucherType voucherType, long amount, LocalDateTime createdAt) {
+    VoucherDto(UUID voucherId, UUID customerId, VoucherType voucherType, long amount, LocalDateTime createdAt) {
         this.voucherId = voucherId;
+        this.customerId = customerId;
         this.voucherType = voucherType;
         this.amount = amount;
         this.createdAt = createdAt;
@@ -26,6 +28,10 @@ public class VoucherDto {
 
     public UUID getVoucherId() {
         return voucherId;
+    }
+
+    public UUID getCustomerId() {
+        return customerId;
     }
 
     public VoucherType getVoucherType() {

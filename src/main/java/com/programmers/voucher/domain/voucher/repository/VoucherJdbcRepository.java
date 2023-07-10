@@ -36,10 +36,11 @@ public class VoucherJdbcRepository implements VoucherRepository {
     @Override
     public void save(Voucher voucher) {
         VoucherDto voucherDto = VoucherDto.from(voucher);
-        String sql = "insert into voucher(voucher_id, voucher_type, amount, created_at)" +
-                " values(:voucherId, :voucherType, :amount, :createdAt)";
+        String sql = "insert into voucher(voucher_id, customer_id, voucher_type, amount, created_at)" +
+                " values(:voucherId, :customerId, :voucherType, :amount, :createdAt)";
         MapSqlParameterSource param = new MapSqlParameterSource()
                 .addValue("voucherId", voucherDto.getVoucherId().toString())
+                .addValue("customerId", voucherDto.getCustomerId())
                 .addValue("voucherType", voucherDto.getVoucherType().name())
                 .addValue("amount", voucherDto.getAmount())
                 .addValue("createdAt", Timestamp.valueOf(voucherDto.getCreatedAt()));
@@ -119,11 +120,13 @@ public class VoucherJdbcRepository implements VoucherRepository {
     private RowMapper<Voucher> voucherRowMapper() {
         return (rs, rowNum) -> {
             UUID voucherId = UUID.fromString(rs.getString("voucher_id"));
+            String rawCustomerId = rs.getString("customer_id");
+            UUID customerId = rawCustomerId != null ? UUID.fromString(rawCustomerId) : null;
             VoucherType voucherType = VoucherType.valueOf(rs.getString("voucher_type"));
             long amount = rs.getLong("amount");
             LocalDateTime createdAt = rs.getTimestamp("created_at").toLocalDateTime();
 
-            return voucherType.retrieveVoucher(voucherId, amount, createdAt);
+            return voucherType.retrieveVoucher(voucherId, customerId, amount, createdAt);
         };
     }
 }

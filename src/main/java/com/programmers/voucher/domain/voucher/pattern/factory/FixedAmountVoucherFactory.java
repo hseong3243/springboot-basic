@@ -13,7 +13,7 @@ public class FixedAmountVoucherFactory implements VoucherFactory {
     }
 
     @Override
-    public Voucher retrieveVoucher(UUID voucherId, long amount, LocalDateTime createdAt) {
+    public Voucher retrieveVoucher(UUID voucherId, UUID customerId, long amount, LocalDateTime createdAt) {
         return new FixedAmountVoucher(voucherId, createdAt, amount);
     }
 }

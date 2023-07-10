@@ -53,8 +53,8 @@ public enum VoucherType {
         return voucherFactory.publishVoucher(voucherId, amount);
     }
 
-    public Voucher retrieveVoucher(UUID voucherId, long amount, LocalDateTime createdAt) {
-        return voucherFactory.retrieveVoucher(voucherId, amount, createdAt);
+    public Voucher retrieveVoucher(UUID voucherId, UUID customerId, long amount, LocalDateTime createdAt) {
+        return voucherFactory.retrieveVoucher(voucherId, customerId, amount, createdAt);
     }
 
     public String getType() {
